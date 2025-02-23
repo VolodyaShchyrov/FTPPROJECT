@@ -39,8 +39,6 @@ namespace FtpProjectVova
 
         private void button2_Click(object sender, EventArgs e)//create text file
         {
-
-
             try
             {
                 FileStream file = new FileStream(createFileTextBox.Text, FileMode.Append);
@@ -54,11 +52,7 @@ namespace FtpProjectVova
 
             }
             catch (Exception ex)
-            { MessageBox.Show(ex.Message); }
-
-
-
-            
+            { MessageBox.Show(ex.Message); }   
         }
 
         private void createFileTextBox_TextChanged(object sender, EventArgs e)
@@ -103,18 +97,22 @@ namespace FtpProjectVova
                 using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                 {
                     string line;
-                    
+                    for (int i = 0; i < 30; i++)
+                    {
+                        File.AppendAllText(path, "#");
+                    }
+                    File.AppendAllText(path, "\n\n");
                     string timeDate = DateTime.Now.ToString("dd.MM.yyyy HH:mm.ss");
 
                     File.AppendAllText(path, "Date and time: "+timeDate + Environment.NewLine);
-                    
+                    int count = 0;
                     while((line = reader.ReadLine())!= null)
                     {
                         for(int i = 0;i < 30;i++)
                         {
                             File.AppendAllText(path,"-");
                         }
-                        File.AppendAllText(path,line + "\n");
+                        File.AppendAllText(path,$"   {++count}.----" + line + "\n");
                     }
                     MessageBox.Show("All files name and derictories on .txt file.");
 
